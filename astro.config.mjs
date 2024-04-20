@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import icon from "astro-icon";
 import mdx from "@astrojs/mdx";
 import remarkHeadingId from "remark-heading-id";
 import remarkDirective from "remark-directive";
@@ -30,5 +31,6 @@ export default defineConfig({
       syntaxHighlight: false,
       remarkPlugins: [remarkDirective, smallRemarkAdapter, remarkHeadingId],
     }),
+    icon(),
   ],
 });

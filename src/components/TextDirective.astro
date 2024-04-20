@@ -1,8 +1,11 @@
 ---
 import { YouTube } from "astro-embed";
+import { Icon } from "astro-icon/components";
 
-const { directive, ...rest } = Astro.props;
+const { directive, id, ...rest } = Astro.props;
 // console.log("TextDirective", Astro.props);
 ---
 
-{directive === "youtube" && <YouTube {...(rest as { id: string })} />}
+{directive === "youtube" && <YouTube id={id} {...rest} />}
+
+{directive === "icon" && <Icon name={id} {...rest} />}

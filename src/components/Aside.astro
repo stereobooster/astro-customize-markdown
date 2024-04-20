@@ -1,25 +1,63 @@
 ---
+import { Icon } from "astro-icon/components";
+
 type Props = {
   type: "note" | "tip" | "important" | "warning" | "caution";
 };
 
+const { type } = Astro.props;
+
 const icons = {
-  note: "📝",
-  tip: "💡",
-  important: "🛑",
-  warning: "⚠️",
-  caution: "🚧",
+  note: "material-symbols:info",
+  tip: "material-symbols:lightbulb-outline",
+  important: "material-symbols:chat-info-outline",
+  warning: "material-symbols:warning",
+  caution: "material-symbols:stop-circle-outline",
 };
 ---
 
-<aside class="aside">
-  {icons[Astro.props.type]}
+<aside class:list={["aside", type]}>
+  <Icon name={icons[type]} />
   <slot />
 </aside>
 
 <style>
   .aside {
-    border: 1px solid black;
-    padding: 1rem;
+    padding: 0 1rem;
+    border-left: 0.25em solid;
+
+    p {
+      margin: 0;
+    }
+  }
+  .note {
+    border-color: #1f6feb;
+    [data-icon] {
+      color: #1f6feb;
+    }
+  }
+  .tip {
+    border-color: #3fb950;
+    [data-icon] {
+      color: #3fb950;
+    }
+  }
+  .important {
+    border-color: #8957e5;
+    [data-icon] {
+      color: #8957e5;
+    }
+  }
+  .warning {
+    border-color: #d29922;
+    [data-icon] {
+      color: #d29922;
+    }
+  }
+  .caution {
+    border-color: #da3633;
+    [data-icon] {
+      color: #da3633;
+    }
   }
 </style>

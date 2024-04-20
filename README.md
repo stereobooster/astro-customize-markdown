@@ -118,4 +118,5 @@ On the other hand overriding component [encapsulates all logic in one place](src
 `remark-directive` allows to create shortcuts for components, for example, one can create:
 
 - `:youtube{#TtRtkTzHVBU}` to use `astro-embed` YouTube component. See [TextDirective](src/components/TextDirective.astro)
+- `:icon{mdi:account}` to use `astro-icon` Icon component
 - `:::tip` to use `Aside` component (see above). See [ContainerDirective](src/components/ContainerDirective.astro)

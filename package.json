@@ -12,8 +12,10 @@
   "dependencies": {
     "@astrojs/check": "^0.5.10",
     "@astrojs/mdx": "^2.3.1",
+    "@iconify-json/material-symbols": "^1.1.78",
     "astro": "^4.6.3",
     "astro-embed": "^0.7.1",
+    "astro-icon": "^1.1.0",
     "mermaid-isomorphic": "^2.1.2",
     "playwright": "^1.42.1",
     "playwright-chromium": "^1.42.1",

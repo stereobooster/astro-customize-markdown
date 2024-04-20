@@ -7,7 +7,7 @@ const aside = Boolean(matches);
 let type = "note" as any;
 if (matches) {
   type = matches[1].toLowerCase();
-  text = text.replace(matches[0], "");
+  text = text.replace(matches[0], "<p>");
 }
 ---
 
