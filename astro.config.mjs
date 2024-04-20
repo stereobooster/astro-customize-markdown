@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
+import remarkHeadingId from "remark-heading-id";
 import remarkDirective from "remark-directive";
 import { visit } from "unist-util-visit";
 
@@ -27,7 +28,7 @@ export default defineConfig({
   integrations: [
     mdx({
       syntaxHighlight: false,
-      remarkPlugins: [remarkDirective, smallRemarkAdapter],
+      remarkPlugins: [remarkDirective, smallRemarkAdapter, remarkHeadingId],
     }),
   ],
 });

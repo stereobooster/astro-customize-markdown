@@ -24,10 +24,12 @@ Testing how different overrides work in Astro:
 - [x] Blockquote
   - [x] `<slot />`
     - content is HTML string though
-- [x] Header
+- [x] Heading
   - [x] `id`
   - [x] `<slot />`
-  - [ ] `{#custom-id}` doesn't work, probably requires remark configuration
+  - [x] `{#custom-id}` doesn't work
+    - `remark-custom-heading-id` didn't work in my case
+    - `remark-heading-id` works, but in MDX one needs to escape curly-braces `\{#custom-id\}`
 
 ## Inspiration
 
@@ -96,9 +98,9 @@ Other potential use cases:
   - [A World-Class Code Playground with Sandpack](https://www.joshwcomeau.com/react/next-level-playground/)
 - [starry-night](https://github.com/wooorm/starry-night)
 
-### Case study 3: Header
+### Case study 3: Heading
 
-You may want to add anchors to headers. There is already rehype plugin for this - `rehype-autolink-headings`. But this requires [quite some configuration in different places](https://astro-digital-garden.stereobooster.com/recipes/anchors-for-headings/).
+You may want to add anchors to headings. There is already rehype plugin for this - `rehype-autolink-headings`. But this requires [quite some configuration in different places](https://astro-digital-garden.stereobooster.com/recipes/anchors-for-headings/).
 
 On the other hand overriding component [encapsulates all logic in one place](src/components/H2Override.astro).
 

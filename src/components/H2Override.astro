@@ -8,7 +8,7 @@ const id = Astro.props.id;
 
 <h2 id={id}>
   <slot /><a
-    class="header-anchor"
+    class="heading-anchor"
     aria-hidden="true"
     tabindex="-1"
     href={`#${id}`}>🔗</a
@@ -16,14 +16,14 @@ const id = Astro.props.id;
 </h2>
 
 <style>
-  .header-anchor {
+  .heading-anchor {
     text-decoration: none;
     font-size: 1.3rem;
     margin-left: 0.5rem;
     color: transparent !important;
     user-select: none;
   }
-  h2:hover .header-anchor {
+  h2:hover .heading-anchor {
     text-shadow: 0 0 0 blue;
   }
 </style>
