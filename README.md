@@ -2,7 +2,6 @@
 
 Testing how different overrides work in Astro:
 
-- [ ] [remark-directive](https://github.com/remarkjs/remark-directive)
 - [ ] Code - doesn't work as expected
   - [ ] `inline` not passed - no way to distinguish inline-code and block-code
     - had to do hack with `props.class === undefined`
@@ -10,7 +9,10 @@ Testing how different overrides work in Astro:
     - had to do hack with `class?.replace("language-", "")`
   - [ ] block-code get's wrapped in extra `pre`
     - had to do hack with overriding `pre` and render it witout tag
+  - [ ] `<slot />` - content is HTML string, which means that one needs to unescape it
   - [x] `metastring`
+- [x] [remark-directive](https://github.com/remarkjs/remark-directive)
+  - works if you add `smallRemarkAdapter`, then `leafdirective`, `containerdirective` and `textdirective` can be handled with MDX overrides
 - [x] Image - works as expected
   - [x] `src`
   - [x] `alt`
@@ -61,7 +63,17 @@ const x = 1;
 
 They basically duplicate code: once it is written as remark plugin and once it is written as Astro component.
 
-**Plus**: if you want to customize it, for example, to add [Mermaid support](https://github.com/withastro/starlight/discussions/1259) you need to jump through hoops to undo what built-in syntax highlighter does
+**Plus**: if you want to customize it, for example, to add [Mermaid support](https://github.com/withastro/starlight/discussions/1259) you need to jump through hoops to undo what built-in syntax highlighter does.
+
+```astro
+{
+  lang === "mermaid" ? (
+    <Mermaid diagram={code} />
+  ) : (
+    <Code code={code} lang={lang} inline={inline} />
+  )
+}
+```
 
 Other potential use cases:
 
@@ -86,8 +98,9 @@ You may want to add icons to external links or `target="_blank"` or `rel="nofoll
 
 On the other hand overriding component [encapsulates all logic in one place](src/components/LinkOverride.astro).
 
-## Docs
+### Case study 5: remark-directive
 
-List of components that MDX supports out of the box https://mdxjs.com/table-of-components/
+`remark-directive` allows to create shortcuts for components, for example, one can create:
 
-Astro integration https://docs.astro.build/en/guides/integrations-guide/mdx/
+- `:youtube{#TtRtkTzHVBU}` to use `astro-embed` YouTube component
+- `:::tip` to use `Aside` component (see above)

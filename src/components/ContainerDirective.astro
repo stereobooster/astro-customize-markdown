@@ -1,0 +1,10 @@
+---
+import Aside from "./Aside.astro";
+
+const { directive } = Astro.props;
+// console.log('ContainerDirective', Astro.props);
+---
+
+<Aside type={directive}>
+  <slot />
+</Aside>

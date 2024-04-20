@@ -13,6 +13,13 @@
     "@astrojs/check": "^0.5.10",
     "@astrojs/mdx": "^2.3.1",
     "astro": "^4.6.3",
-    "typescript": "^5.4.5"
+    "astro-embed": "^0.7.1",
+    "mermaid-isomorphic": "^2.1.2",
+    "playwright": "^1.42.1",
+    "playwright-chromium": "^1.42.1",
+    "remark-directive": "^3.0.0",
+    "sharp": "^0.33.3",
+    "typescript": "^5.4.5",
+    "unist-util-visit": "^5.0.0"
   }
 }

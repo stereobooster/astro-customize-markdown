@@ -1,0 +1,15 @@
+---
+import { createMermaidRenderer } from "mermaid-isomorphic";
+
+type Props = {
+  diagram: string;
+};
+
+const renderer = createMermaidRenderer();
+const diagram = Astro.props.diagram;
+const [result] = await renderer([diagram]);
+// @ts-expect-error
+const { svg } = result.value;
+---
+
+<Fragment set:html={svg} />

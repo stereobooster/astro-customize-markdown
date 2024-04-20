@@ -1,0 +1,25 @@
+---
+type Props = {
+  type: "note" | "tip" | "important" | "warning" | "caution";
+};
+
+const icons = {
+  note: "📝",
+  tip: "💡",
+  important: "🛑",
+  warning: "⚠️",
+  caution: "🚧",
+};
+---
+
+<aside class="aside">
+  {icons[Astro.props.type]}
+  <slot />
+</aside>
+
+<style>
+  .aside {
+    border: 1px solid black;
+    padding: 1rem;
+  }
+</style>

@@ -1,26 +1,21 @@
 ---
+import Aside from "./Aside.astro";
+
 let text = await Astro.slots.render("default");
 const matches = text.trim().match(/^\<p\>\[!([^\]]*)\]/);
-const callout = Boolean(matches);
+const aside = Boolean(matches);
+let type = "note" as any;
 if (matches) {
-  const type = matches[1];
-  const icons = {
-    NOTE: "📝",
-    TIP: "💡",
-    IMPORTANT: "🛑",
-    WARNING: "⚠️",
-    CAUTION: "🚧",
-  };
-  // @ts-expect-error
-  text = text.replace(matches[0], icons[type]);
+  type = matches[1].toLowerCase();
+  text = text.replace(matches[0], "");
 }
 ---
 
 {
-  callout ? (
-    <aside>
+  aside ? (
+    <Aside type={type}>
       <Fragment set:html={text} />
-    </aside>
+    </Aside>
   ) : (
     <blockquote>
       <Fragment set:html={text} />

@@ -12,7 +12,7 @@ type Props = {
 const { src, alt, title } = Astro.props;
 ---
 
-<figure>
+<figure class="figure">
   {
     typeof src === "string" ? (
       <img src={src} alt={alt} />
@@ -22,3 +22,9 @@ const { src, alt, title } = Astro.props;
   }
   {title && <figcaption>{title}</figcaption>}
 </figure>
+
+<style>
+.figure figcaption {
+  text-align: center;
+}
+</style>

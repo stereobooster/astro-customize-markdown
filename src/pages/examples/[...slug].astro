@@ -22,6 +22,9 @@ import PreOverride from "../../components/PreOverride.astro";
 import BlockquoteOverride from "../../components/BlockquoteOverride.astro";
 import LinkOverride from "../../components/LinkOverride.astro";
 import H2Override from "../../components/H2Override.astro";
+import LeafDirective from "../../components/LeafDirective.astro";
+import ContainerDirective from "../../components/ContainerDirective.astro";
+import TextDirective from "../../components/TextDirective.astro";
 
 const components = {
   code: CodeOverride,
@@ -29,7 +32,10 @@ const components = {
   pre: PreOverride,
   blockquote: BlockquoteOverride,
   a: LinkOverride,
-  h2: H2Override
+  h2: H2Override,
+  leafdirective: LeafDirective,
+  containerdirective: ContainerDirective,
+  textdirective: TextDirective,
 };
 ---
 

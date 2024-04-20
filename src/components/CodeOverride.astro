@@ -1,5 +1,7 @@
 ---
 import { Code } from "astro:components";
+import { decode } from "./decode";
+import Mermaid from "./Mermaid.astro";
 
 type Props = {
   class?: string;
@@ -7,9 +9,15 @@ type Props = {
 };
 
 const props = Astro.props;
-const inline = props.class === undefined
+const inline = props.class === undefined;
 const lang = props.class?.replace("language-", "") as any;
-const code = await Astro.slots.render("default");
+const code = decode(await Astro.slots.render("default"));
 ---
 
-<Code code={code} lang={lang} inline={inline} />
+{
+  lang === "mermaid" ? (
+    <Mermaid diagram={code} />
+  ) : (
+    <Code code={code} lang={lang} inline={inline} />
+  )
+}

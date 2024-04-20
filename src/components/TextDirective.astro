@@ -1,0 +1,8 @@
+---
+import { YouTube } from "astro-embed";
+
+const { directive, ...rest } = Astro.props;
+// console.log("TextDirective", Astro.props);
+---
+
+{directive === "youtube" && <YouTube {...(rest as { id: string })} />}
