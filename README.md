@@ -1,4 +1,4 @@
-# Testing override for markdown with components
+# Testing override for MDX with components
 
 Testing how different overrides work in Astro:
 
