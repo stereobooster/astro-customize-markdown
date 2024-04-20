@@ -36,6 +36,8 @@ Testing how different overrides work in Astro:
 
 Currently overrides only supported for MDX, but not for markdown. [There is a proposal to support component overrides for markdown as well](https://github.com/withastro/roadmap/discussions/769).
 
+Ideally it should be as easy as [Hugo render hooks](https://gohugo.io/render-hooks/).
+
 ## Why does it matter?
 
 ### Case study 1: Aside in Starlight
