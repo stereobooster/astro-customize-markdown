@@ -73,6 +73,8 @@ They basically duplicate code: once it is written as remark plugin and once it i
 
 **Plus**: if you want to customize it, for example, to add [Mermaid support](https://github.com/withastro/starlight/discussions/1259) you need to jump through hoops to undo what built-in syntax highlighter does.
 
+Instead they can reuse components like this:
+
 ```astro
 {
   lang === "mermaid" ? (
@@ -110,5 +112,5 @@ On the other hand overriding component [encapsulates all logic in one place](src
 
 `remark-directive` allows to create shortcuts for components, for example, one can create:
 
-- `:youtube{#TtRtkTzHVBU}` to use `astro-embed` YouTube component
-- `:::tip` to use `Aside` component (see above)
+- `:youtube{#TtRtkTzHVBU}` to use `astro-embed` YouTube component. See [TextDirective](src/components/TextDirective.astro)
+- `:::tip` to use `Aside` component (see above). See [ContainerDirective](src/components/ContainerDirective.astro)
