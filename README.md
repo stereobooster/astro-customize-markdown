@@ -27,7 +27,7 @@ Testing how different overrides work in Astro:
 - [x] Heading
   - [x] `id`
   - [x] `<slot />`
-  - [x] `{#custom-id}` doesn't work
+  - [x] `{#custom-id}` (works with remark plugin)
     - `remark-custom-heading-id` didn't work in my case
     - `remark-heading-id` works, but in MDX one needs to escape curly-braces `\{#custom-id\}`
     - see https://github.com/withastro/roadmap/discussions/329
