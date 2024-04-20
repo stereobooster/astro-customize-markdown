@@ -49,6 +49,14 @@ Highlights information that users should take into account, even when skimming.
 
 They basically duplicate code: once it is written as remark plugin and once it is written as Astro component.
 
+Instead they can reuse it like this:
+
+```astro
+<Aside type={directive}>
+  <slot />
+</Aside>
+```
+
 ### Case study 2: Code in Starlight
 
 Astro provides [`<Code />` component](https://docs.astro.build/en/reference/api-reference/#code-).
@@ -88,13 +96,13 @@ Other potential use cases:
 
 ### Case study 3: Header
 
-You may want to add anchors to headers. There is already rehype plugin for this - `rehype-autolink-headings`. But this requires [quite some configuration indifferent places](https://astro-digital-garden.stereobooster.com/recipes/anchors-for-headings/).
+You may want to add anchors to headers. There is already rehype plugin for this - `rehype-autolink-headings`. But this requires [quite some configuration in different places](https://astro-digital-garden.stereobooster.com/recipes/anchors-for-headings/).
 
 On the other hand overriding component [encapsulates all logic in one place](src/components/H2Override.astro).
 
 ### Case study 4: Link
 
-You may want to add icons to external links or `target="_blank"` or `rel="nofollow"`. There is already rehype plugin for this - `rehype-external-links`. But this requires [quite some configuration indifferent places](https://astro-digital-garden.stereobooster.com/recipes/icons-to-external-links/).
+You may want to add icons to external links or `target="_blank"` or `rel="nofollow"`. There is already rehype plugin for this - `rehype-external-links`. But this requires [quite some configuration in different places](https://astro-digital-garden.stereobooster.com/recipes/icons-to-external-links/).
 
 On the other hand overriding component [encapsulates all logic in one place](src/components/LinkOverride.astro).
 
