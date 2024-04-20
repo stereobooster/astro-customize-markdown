@@ -9,7 +9,8 @@ Testing how different overrides work in Astro:
   - [ ] `lang` not passed
     - had to do hack with `class?.replace("language-", "")`
   - [ ] block-code get's wrapped in extra `pre`
-    - had to do hack with overriding `pre` and render it witout extra
+    - had to do hack with overriding `pre` and render it witout tag
+  - [x] `metastring`
 - [x] Image - works as expected
   - [x] `src`
   - [x] `alt`
@@ -25,6 +26,65 @@ Testing how different overrides work in Astro:
   - [x] `id`
   - [x] `<slot />`
   - [ ] `{#custom-id}` doesn't work, probably requires remark configuration
+
+## Inspiration
+
+Currently overrides only supported for MDX, but not for markdown. [There is a proposal to support component overrides for markdown as well](https://github.com/withastro/roadmap/discussions/769).
+
+## Why does it matter?
+
+### Case study 1: Aside in Starlight
+
+Starlight provides [`<Aside />` component](https://github.com/withastro/starlight/blob/main/packages/starlight/user-components/Aside.astro).
+
+Also it provides [markdown support for it](https://github.com/withastro/starlight/blob/main/packages/starlight/integrations/asides.ts):
+
+```md
+:::note
+Highlights information that users should take into account, even when skimming.
+:::
+```
+
+They basically duplicate code: once it is written as remark plugin and once it is written as Astro component.
+
+### Case study 2: Code in Starlight
+
+Astro provides [`<Code />` component](https://docs.astro.build/en/reference/api-reference/#code-).
+
+Also it provides markdown support for it:
+
+````md
+```ts
+const x = 1;
+```
+````
+
+They basically duplicate code: once it is written as remark plugin and once it is written as Astro component.
+
+**Plus**: if you want to customize it, for example, to add [Mermaid support](https://github.com/withastro/starlight/discussions/1259) you need to jump through hoops to undo what built-in syntax highlighter does
+
+Other potential use cases:
+
+- [Code Hike](https://codehike.org/)
+  - [codehike#255](https://github.com/code-hike/codehike/issues/255)
+  - [withastro/discussions#470](https://github.com/withastro/roadmap/discussions/470)
+- [Shiki-Twoslash](https://shikijs.github.io/twoslash/)
+  - [starlight/discussions#1381](https://github.com/withastro/starlight/discussions/1381)
+- [Sandpack](https://sandpack.codesandbox.io/)
+  - [A World-Class Code Playground with Sandpack](https://www.joshwcomeau.com/react/next-level-playground/)
+- [starry-night](https://github.com/wooorm/starry-night)
+
+### Case study 3: Header
+
+You may want to add anchors to headers. There is already rehype plugin for this - `rehype-autolink-headings`. But this requires [quite some configuration indifferent places](https://astro-digital-garden.stereobooster.com/recipes/anchors-for-headings/).
+
+On the other hand overriding component [encapsulates all logic in one place](src/components/H2Override.astro).
+
+### Case study 4: Link
+
+You may want to add icons to external links or `target="_blank"` or `rel="nofollow"`. There is already rehype plugin for this - `rehype-external-links`. But this requires [quite some configuration indifferent places](https://astro-digital-garden.stereobooster.com/recipes/icons-to-external-links/).
+
+On the other hand overriding component [encapsulates all logic in one place](src/components/LinkOverride.astro).
 
 ## Docs
 
