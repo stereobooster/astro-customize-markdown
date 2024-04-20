@@ -1,0 +1,15 @@
+---
+import { Code } from "astro:components";
+
+type Props = {
+  class?: string;
+  metastring?: string;
+};
+
+const props = Astro.props;
+const inline = props.class === undefined
+const lang = props.class?.replace("language-", "") as any;
+const code = await Astro.slots.render("default");
+---
+
+<Code code={code} lang={lang} inline={inline} />

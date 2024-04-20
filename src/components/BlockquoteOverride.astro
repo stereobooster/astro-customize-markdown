@@ -1,0 +1,29 @@
+---
+let text = await Astro.slots.render("default");
+const matches = text.trim().match(/^\<p\>\[!([^\]]*)\]/);
+const callout = Boolean(matches);
+if (matches) {
+  const type = matches[1];
+  const icons = {
+    NOTE: "📝",
+    TIP: "💡",
+    IMPORTANT: "🛑",
+    WARNING: "⚠️",
+    CAUTION: "🚧",
+  };
+  // @ts-expect-error
+  text = text.replace(matches[0], icons[type]);
+}
+---
+
+{
+  callout ? (
+    <aside>
+      <Fragment set:html={text} />
+    </aside>
+  ) : (
+    <blockquote>
+      <Fragment set:html={text} />
+    </blockquote>
+  )
+}

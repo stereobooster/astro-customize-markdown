@@ -1,0 +1,25 @@
+---
+type Props = {
+  href: string;
+  title?: string;
+};
+
+const { href, title } = Astro.props;
+const text = await Astro.slots.render("default");
+
+const isExternal = href.startsWith("http");
+const props = isExternal ? {
+  target: "_blank",
+  rel: "noopener"
+} : {}
+---
+
+<a href={href} title={title} {...props}>
+  <Fragment set:html={text} />{isExternal && <span class="no-select" aria-hidden="true"> ↗</span>}
+</a>
+
+<style>
+  .no-select {
+    user-select: none;
+  }
+</style>
