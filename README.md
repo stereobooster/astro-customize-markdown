@@ -121,3 +121,7 @@ On the other hand overriding component [encapsulates all logic in one place](src
 - `:youtube{#TtRtkTzHVBU}` to use `astro-embed` YouTube component. See [TextDirective](src/components/TextDirective.astro)
 - `:icon{mdi:account}` to use `astro-icon` Icon component
 - `:::tip` to use `Aside` component (see above). See [ContainerDirective](src/components/ContainerDirective.astro)
+
+## Ideas
+
+One can implement remark/rehype plugin and use [`await astro.renderToString(Component, { props, slots, request, params })`](https://github.com/withastro/roadmap/issues/533) to render components.
