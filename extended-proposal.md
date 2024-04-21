@@ -254,3 +254,10 @@ On the other side if one already uses MDX they can use it for all files. And tre
 If components for MD would work the same way as MDX, they would inherit the same problems as described in [astro-customize-markdown](https://github.com/stereobooster/astro-customize-markdown).
 
 If current MDX overrides are good enough for your use case, you can rename all files from `.md` to `.mdx`.
+
+## PS
+
+The main questions are:
+
+- If current overrides for MDX are good enough for your use cases, what prevents you to rename all files from `.md` to `.mdx`?
+- If there is an intention to implement different API how would it look like? Will new API be compatible with MDX?
