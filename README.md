@@ -10,6 +10,7 @@ Testing how different overrides work in Astro:
   - [ ] block-code get's wrapped in extra `pre`
     - had to do hack with overriding `pre` and render it witout tag
   - [ ] `<slot />` - content is HTML string, which means that one needs to unescape it
+    - is there a way to use something like `allowDangerousHTML` to pass raw strings to some nodes?
   - [x] `metastring`
 - [x] [remark-directive](https://github.com/remarkjs/remark-directive)
   - works if you add `smallRemarkAdapter`, then `leafdirective`, `containerdirective` and `textdirective` can be handled with MDX overrides
