@@ -1,0 +1,136 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<!-- https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually -->
+<starlight-theme-select>
+  <Icon name="material-symbols:laptop-chromebook" class="label-icon" />
+  <select value="auto">
+    <option value="dark">Dark</option>
+    <option value="light">Light</option>
+    <option value="auto" selected="true">Auto</option>
+  </select>
+</starlight-theme-select>
+
+{/* Inlined to avoid FOUC. Uses global scope from `ThemeProvider.astro` */}
+<script is:inline>
+  StarlightThemeProvider.updatePickers();
+</script>
+
+<script>
+  let haveExecuted = false;
+
+  type Theme = "auto" | "dark" | "light";
+
+  /** Key in `localStorage` to store color theme preference at. */
+  const storageKey = "starlight-theme";
+
+  /** Get a typesafe theme string from any JS value (unknown values are coerced to `'auto'`). */
+  const parseTheme = (theme: unknown): Theme =>
+    theme === "auto" || theme === "dark" || theme === "light" ? theme : "auto";
+
+  /** Load the user’s preference from `localStorage`. */
+  const loadTheme = (): Theme =>
+    parseTheme(
+      typeof localStorage !== "undefined" && localStorage.getItem(storageKey)
+    );
+
+  /** Store the user’s preference in `localStorage`. */
+  function storeTheme(theme: Theme): void {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(
+        storageKey,
+        theme === "light" || theme === "dark" ? theme : ""
+      );
+    }
+  }
+
+  /** Get the preferred system color scheme. */
+  const getPreferredColorScheme = (): Theme =>
+    matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+
+  /** Update select menu UI, document theme, and local storage state. */
+  function onThemeChange(theme: Theme): void {
+    StarlightThemeProvider.updatePickers(theme);
+    document.documentElement.dataset.theme =
+      theme === "auto" ? getPreferredColorScheme() : theme;
+    storeTheme(theme);
+    updateImages(theme);
+  }
+
+  // React to changes in system color scheme.
+  matchMedia(`(prefers-color-scheme: light)`).addEventListener("change", () => {
+    if (loadTheme() === "auto") onThemeChange("auto");
+  });
+
+  class StarlightThemeSelect extends HTMLElement {
+    constructor() {
+      super();
+      onThemeChange(loadTheme());
+      this.querySelector("select")?.addEventListener("change", (e) => {
+        if (e.currentTarget instanceof HTMLSelectElement) {
+          onThemeChange(parseTheme(e.currentTarget.value));
+        }
+      });
+    }
+  }
+  customElements.define("starlight-theme-select", StarlightThemeSelect);
+
+  /**
+   * absolutley hacky way to support picture/source in selector-based theming
+   */
+  function updateImages(theme: string) {
+    if (!haveExecuted) {
+      haveExecuted = true;
+      if (theme === "light" || theme === "auto") return;
+    }
+    if (theme === "dark") {
+      Array.from(document.querySelectorAll("picture")).forEach((pic) => {
+        const darkSource = pic.querySelector(
+          'source[media="(prefers-color-scheme: dark)"]'
+        ) as HTMLSourceElement;
+        const lightSource = pic.querySelector(
+          'source[media="(prefers-color-scheme: light)"]'
+        ) as HTMLSourceElement;
+        if (darkSource) {
+          const img = pic.querySelector("img")!;
+          if (!lightSource) {
+            const newSource = document.createElement("source");
+            newSource.media = "(prefers-color-scheme: light)";
+            newSource.srcset = img.srcset || img.src;
+            pic.appendChild(newSource);
+          }
+          pic.querySelector("img")!.srcset = darkSource.srcset;
+        }
+      });
+    }
+    if (theme === "light" || theme === "auto") {
+      Array.from(document.querySelectorAll("picture")).forEach((pic) => {
+        const lightSource = pic.querySelector(
+          'source[media="(prefers-color-scheme: light)"]'
+        ) as HTMLSourceElement;
+        if (lightSource) {
+          const img = pic.querySelector("img")!;
+          pic.querySelector("img")!.srcset = lightSource.srcset;
+        }
+      });
+    }
+  }
+
+  docReady(() => {
+    updateImages(document.documentElement.dataset.theme!);
+  });
+
+  function docReady(fn: () => void) {
+    // see if DOM is already available
+    if (
+      document.readyState === "complete" ||
+      document.readyState === "interactive"
+    ) {
+      // call on next available tick
+      setTimeout(fn, 1);
+    } else {
+      document.addEventListener("DOMContentLoaded", fn);
+    }
+  }
+</script>

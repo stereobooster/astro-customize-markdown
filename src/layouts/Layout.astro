@@ -1,4 +1,7 @@
 ---
+import ThemeProvider from "../components/ThemeProvider.astro";
+import ThemeSelect from "../components/ThemeSelect.astro";
+
 interface Props {
   title: string;
 }
@@ -17,6 +20,8 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <ThemeProvider />
+    <ThemeSelect />
     <slot />
   </body>
 </html>
@@ -24,6 +29,12 @@ const { title } = Astro.props;
   html {
     font-family: system-ui, sans-serif;
   }
+
+  html[data-theme="dark"] {
+    background-color: #222;
+    color: #fff;
+  }
+
   code {
     font-family:
       Menlo,
@@ -34,5 +45,30 @@ const { title } = Astro.props;
       Bitstream Vera Sans Mono,
       Courier New,
       monospace;
+  }
+
+  code {
+    font-size: 0.9rem;
+    border: 1px solid gray;
+    padding: 0.2rem;
+    border-radius: 5px;
+  }
+
+  html[data-theme="dark"] .shiki,
+  html[data-theme="dark"] .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+
+  .shiki {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+
+  .shiki code {
+    border: none;
+    padding: 0;
+    border-radius: 0;
   }
 </style>

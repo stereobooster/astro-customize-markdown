@@ -1,35 +1,49 @@
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 import mdx from "@astrojs/mdx";
-import remarkHeadingId from "remark-heading-id";
-import remarkDirective from "remark-directive";
-import { visit } from "unist-util-visit";
-
-function smallRemarkAdapter() {
-  return function (tree) {
-    visit(tree, function (node) {
-      if (
-        node.type === "containerDirective" ||
-        node.type === "leafDirective" ||
-        node.type === "textDirective"
-      ) {
-        node.data = node.data || {};
-        node.data.hName = node.type;
-        node.data.hProperties = {
-          directive: node.name,
-          ...(node.attributes || {}),
-        };
-      }
-    });
-  };
-}
+import rehypeShiki from "@shikijs/rehype";
+import rehypeMermaid from "rehype-mermaid";
+// import rehypeExpressiveCode from "rehype-expressive-code";
+// import expressiveCode from "astro-expressive-code";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
+    // expressiveCode(),
     mdx({
       syntaxHighlight: false,
-      remarkPlugins: [remarkDirective, smallRemarkAdapter, remarkHeadingId],
+      rehypePlugins: [
+        [
+          rehypeMermaid,
+          {
+            // The default strategy is 'inline-svg'
+            // strategy: 'img-png'
+            // strategy: 'img-svg'
+            // strategy: 'inline-svg'
+            // strategy: 'pre-mermaid'
+            strategy: "img-svg",
+            dark: true,
+          },
+        ],
+        // [
+        //   rehypeExpressiveCode,
+        //   {
+        //     themes: ["github-dark", "github-light"],
+        //   },
+        // ],
+        [
+          rehypeShiki,
+          {
+            onError: (error) => console.log(error.message),
+            // or `theme` for a single theme
+            // theme: "nord",
+            themes: {
+              light: "github-light",
+              dark: "github-dark",
+            },
+          },
+        ],
+      ],
     }),
     icon(),
   ],
