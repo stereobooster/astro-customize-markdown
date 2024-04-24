@@ -16,6 +16,8 @@
     "astro": "^4.6.3",
     "astro-embed": "^0.7.1",
     "astro-icon": "^1.1.0",
+    "hast-util-from-html-isomorphic": "^2.0.0",
+    "hast-util-to-text": "^4.0.2",
     "mermaid-isomorphic": "^2.1.2",
     "playwright": "^1.42.1",
     "playwright-chromium": "^1.42.1",
@@ -23,6 +25,7 @@
     "remark-heading-id": "^1.0.1",
     "sharp": "^0.33.3",
     "typescript": "^5.4.5",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.0.0",
+    "unist-util-visit-parents": "^6.0.1"
   }
 }
